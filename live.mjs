@@ -24,7 +24,7 @@ for (const [name, bt, opts] of [['chromium', chromium, {}], ['webkit', webkit, {
   const r = await p.evaluate(() => { dpl.dbg.pause(true); Object.assign(dpl.bot, { on: true, style: 'expert', st: 'think', t: 0.5, x: 180, y: 600 }); let t = 0; while (dpl.G.mode !== 'end' && t < 300) { dpl.dbg.step(30); t += 0.5 } return { mode: dpl.G.mode, rank: dpl.G.R && dpl.G.R.rank, n: dpl.G.stats.n } })
   out.push(`${name}: run=${JSON.stringify(r)} muted=${muted} snd=${(await p.evaluate(() => Object.keys(Snd.bufs).length))}`)
   await p.screenshot({ path: `shots/live-${name}.png` })
-  const og = await p.evaluate(async () => { const r = await fetch(document.querySelector('meta[property="og:image"]').content); return r.status + ' ' + r.headers.get('content-type') })
+  const og = await p.evaluate(async () => { const r = await fetch('og.png'); return r.status + ' ' + r.headers.get('content-type') })
   out.push(`${name}: og=${og} errors=${errs.length ? errs.join(' | ') : 'none'}`)
   await b.close()
 }
