@@ -1,0 +1,28 @@
+- snd/peel_loop.mp3: 202 More Sound Effects / OwlishMedia / CC0
+- snd/pull1.mp3: 202 More Sound Effects / OwlishMedia / CC0
+- snd/pull2.mp3: 202 More Sound Effects / OwlishMedia / CC0
+- snd/pull3.mp3: 202 More Sound Effects / OwlishMedia / CC0
+- snd/pull4.mp3: 202 More Sound Effects / OwlishMedia / CC0
+- snd/tear2.mp3: 202 More Sound Effects / OwlishMedia / CC0
+- snd/tear1.mp3: Various Paper Sound Effects / Luckius / CC0
+- snd/pop1.mp3: 3 Pop Sounds / wubitog / CC0
+- snd/pop2.mp3: 3 Pop Sounds / wubitog / CC0
+- snd/amb_fridge.mp3: File:Inside of refrigerator.ogg / stephan / Public domain
+- snd/amb_clock.mp3: File:LA2 kitchen clock.ogg / LA2 / Public domain
+- snd/knock1.mp3: File:Knock on door.wav / Asud12 / CC0
+- snd/knock2.mp3: File:Knocking on wood or door.ogg / stephan / Public domain
+- snd/buzz1.mp3: File:Mobile_phone_interference.ogg (切り出し) / Ezwa / Public domain
+- snd/buzz2.mp3: File:Mobile_phone_interference.ogg (切り出し) / Ezwa / Public domain
+- snd/sms.mp3: File:Segnale_audio_di_arrivo_SMS.ogg (先頭) / Pracchia-78 / Public domain
+- snd/ring.mp3: File:JA_Ringback_tone_by_au.ogg (先頭7秒) / KDDI Corporation / Public domain
+- snd/alarm.mp3: File:Old school bell 4.ogg / ezwa / Public domain
+- snd/drill.mp3: File:Bosch 11255VSR loaded noise.wav / National Institute for Occupational Safety and Health / Public domain
+- snd/birds.mp3: File:Réveil_des_oiseaux.ogg (5-23秒) / Joseph Sardin / CC0
+- snd/rooster.mp3: File:Medium rooster crowing.ogg / alys / Public domain
+- snd/amb_street.mp3: 上の41〜65秒（静かな通り・車が1台通る）を1.5秒の重ね合わせで継ぎ目なしのループにしたもの（22.5秒・16kHz・WAV） / cori / Public domain
+- snd/doorbell.mp3: File:Doorbell-classic-dingdong.ogg / ? / Public domain
+- snd/swish1.mp3: Swishes Sound Pack / artisticdude / CC0
+- snd/swish2.mp3: Swishes Sound Pack / artisticdude / CC0
+- snd/bgm_lofi.mp3: Japanese Lofi HipHop Track / pickentcode / CC0
+- snd/jingle_end.mp3: 85 Short music jingles / Kenney / CC0
+- snd/jingle_stage.mp3: 85 Short music jingles / Kenney / CC0

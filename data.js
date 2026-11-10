@@ -1,0 +1,150 @@
+// 文言と場面のデータ（日英）。処理は game.js
+// 時刻は「締切前夜の 0:00」からの分。23:00 = 1380。締切は翌朝 9:00 = 1980
+const DAY = 1440, YEAR = 365 * DAY
+const DATA = {
+  ui: {
+    ja: {
+      title1: '明日締切なのに', title2: 'シール剥がしが', title3: '止まらない',
+      start: 'はじめる', how: '遊び方', lang: 'English', loading: 'シールをめくっています',
+      howH: '遊び方',
+      howList: [
+        ['端をつまむ', 'シールの端（めくれた角）に指を置いて、そのまま引っぱる。'],
+        ['速いほど気持ちいい', '速く剥がすほど集中が続く。速すぎるとビリッと破れる。シールが白く伸びたら速すぎの合図。'],
+        ['手を止めると我に返る', '剥がさずにいると集中が切れて、現実に戻ってしまう。そこで終わり。'],
+        ['揺れは破れやすい', 'ノック・着信・工事で机が揺れる間は、手を止めてやり過ごす。足音や光る画面が予告。'],
+        ['重なりはまとめて', '重なったシールは、下の一枚から剥がすと全部いっしょに剥がれる。大きく気持ちいいが破れやすい。'],
+      ],
+      howPc: 'マウスでつまんで引っぱる', howSp: '指でつまんで引っぱる',
+      close: '閉じる',
+      tutGrab: '角をつまんで引っぱる', tutEdge: '端をつまむ', tutFast: '速すぎる', tutStack: '下から剥がすと全部いっしょ',
+      tsurun: 'ツルン', stack: n => `${n}枚まとめて`, tear: 'ビリッ', hmm: '…ん？', what: 'あれ、今何時…', snap: 'はっ',
+      next: ['', '冷蔵庫も気になる', '画面のフィルムも', '看板の文字も', '月にフィルムが', ''],
+      clear: '新品の月',
+      deadline: '締切まで', over: '締切から', days: d => `${d}日`, years: y => `${y}年`, hrs: (h, m) => `${h}時間${m}分`,
+      endH: '我に返った', endClear: '全部剥がした',
+      stats: (n, t, r) => `剥がした ${n}枚・ツルン ${t}回・破れ ${r}回`,
+      more: n => `ほか ${n}件`,
+      again: 'もう一回', save: '画像を保存', post: 'Xでポスト',
+      share: (rank, missed, when) => `「${rank}」\n剥がしているうちに${when}たっていた。見逃したもの${missed}件`,
+      shareTag: ' #明日締切なのにシール剥がしが止まらない',
+      now: 'いま', mute: '音',
+      lockDate: (y, m, d, w) => `${y}年${m}月${d}日（${w}）`,
+      wd: ['日', '月', '火', '水', '木', '金', '土'],
+      ballCap: '剥がしたシール',
+      credit: '音: CC0・パブリックドメインの録音素材（CREDITS.md）',
+    },
+    en: {
+      title1: 'Deadline tomorrow.', title2: "Can't stop", title3: 'peeling.',
+      start: 'Start', how: 'How to play', lang: '日本語', loading: 'Peeling the sticker',
+      howH: 'How to play',
+      howList: [
+        ['Grab the edge', 'Put your finger on the edge (the lifted corner) and pull.'],
+        ['Faster feels better', 'Peel fast to stay in the zone. Too fast and it rips. If the sticker stretches white, slow down.'],
+        ['Stop and you snap out', 'If you stop peeling, your focus fades and reality comes back. Game over.'],
+        ['Shaking rips', 'Knocks, calls and construction shake the desk. Hold still until it passes. Footsteps and a lit phone warn you.'],
+        ['Peel the stack', 'Grab the bottom sticker of a stack and the whole pile comes off together. Huge, but rips easier.'],
+      ],
+      howPc: 'Grab and drag with the mouse', howSp: 'Grab and drag with your finger',
+      close: 'Close',
+      tutGrab: 'Grab the corner and pull', tutEdge: 'Grab the edge', tutFast: 'Too fast', tutStack: 'Bottom one takes all',
+      tsurun: 'Clean!', stack: n => `${n} at once`, tear: 'Rip', hmm: '...hm?', what: 'Wait, what time is it', snap: 'Huh',
+      next: ['', 'The fridge too...', 'The screen film too', 'The sign letters too', 'The moon has a film', ''],
+      clear: 'A brand new moon',
+      deadline: 'Due in', over: 'Overdue', days: d => `${d}d`, years: y => `${y}y`, hrs: (h, m) => `${h}h ${m}m`,
+      endH: 'Back to reality', endClear: 'Peeled it all',
+      stats: (n, t, r) => `Peeled ${n} / Clean ${t} / Ripped ${r}`,
+      more: n => `${n} more`,
+      again: 'Again', save: 'Save image', post: 'Post on X',
+      share: (rank, missed, when) => `"${rank}"\nI kept peeling and ${when} went by. Missed: ${missed}`,
+      shareTag: ' #tom3games',
+      now: 'now', mute: 'Sound',
+      lockDate: (y, m, d, w) => `${w}, ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][m - 1]} ${d}, ${y}`,
+      wd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      ballCap: 'Peeled stickers',
+      credit: 'Sounds: CC0 / public domain recordings. See CREDITS.md',
+    },
+  },
+
+  // 称号（どこで我に返ったか）。6 = 全部剥がした
+  ranks: [
+    { ja: '値札で我に返った人', en: 'Snapped out at the price tag' },
+    { ja: '冷蔵庫の前で朝を迎えた人', en: 'Greeted dawn at the fridge' },
+    { ja: '締切を保護フィルムに捧げた人', en: 'Gave the deadline to a screen film' },
+    { ja: '銭湯の看板を外した人', en: 'Took the bathhouse sign apart' },
+    { ja: '月を剥がしかけた人', en: 'Almost peeled the moon' },
+    { ja: '新品の月をとどけた人', en: 'Delivered a brand new moon' },
+  ],
+
+  // 場面。t0..t1 は剥がした面積の割合で進む時計。drain は集中の減り（毎秒）。jolts は揺れの種類
+  stages: [
+    { key: 'bento', t0: 1380, t1: 1430, drain: 0.075, warn: 1.5, jolts: ['door', 'phone'], first: 9, gap: [8, 11] },
+    { key: 'fridge', t0: 1430, t1: DAY + 340, drain: 0.13, warn: 1.35, jolts: ['door', 'phone', 'fridge'], first: 5, gap: [6, 9] },
+    { key: 'laptop', t0: DAY + 340, t1: 3 * DAY + 1080, drain: 0.13, warn: 1.25, jolts: ['phone', 'door'], first: 7, gap: [6.5, 9] },
+    { key: 'sign', t0: 3 * DAY + 1080, t1: 3 * DAY + 1080 + 150 * DAY, drain: 0.155, warn: 1.15, jolts: ['drill', 'truck', 'phone'], first: 4, gap: [5, 8] },
+    { key: 'moon', t0: 3 * DAY + 1080 + 150 * DAY, t1: 3 * DAY + 1080 + 150 * DAY + 7 * YEAR, drain: 0.17, warn: 1.05, jolts: ['rocket', 'phone', 'rocket'], first: 3.5, gap: [5, 7.5] },
+  ],
+
+  // 揺れの予告と本番の擬音（画面の文字は2つまで。8字前後）
+  jolt: {
+    door: { warn: { ja: 'トッ トッ…', en: 'step, step...' }, hit: { ja: 'ドンドン！', en: 'BANG BANG' }, dur: 1.6, snd: 'knock' },
+    phone: { warn: { ja: '', en: '' }, hit: { ja: 'ブーッ ブーッ', en: 'BZZT BZZT' }, dur: 1.8, snd: 'buzz' },
+    fridge: { warn: { ja: 'カチッ', en: 'click' }, hit: { ja: 'ブゥーン', en: 'VRRRM' }, dur: 2.0, snd: 'fridge' },
+    alarm: { warn: { ja: '6:59', en: '6:59' }, hit: { ja: 'ジリリリ！', en: 'RIIING' }, dur: 2.2, snd: 'alarm' },
+    bell: { warn: { ja: '', en: '' }, hit: { ja: 'ピンポーン', en: 'DING DONG' }, dur: 1.5, snd: 'doorbell' },
+    drill: { warn: { ja: 'ウィ…', en: 'whirr...' }, hit: { ja: 'ガガガガ', en: 'BRRRRT' }, dur: 2.2, snd: 'drill' },
+    truck: { warn: { ja: 'ゴ…', en: 'rumble' }, hit: { ja: 'ゴゴゴゴ', en: 'RUMBLE' }, dur: 1.8, snd: 'truck' },
+    rocket: { warn: { ja: '地球から何か', en: 'Launch on Earth' }, hit: { ja: 'ズズズズ', en: 'QUAKE' }, dur: 2.0, snd: 'quake' },
+  },
+
+  // 揺れの主が言うこと（場面ごと）。結果の「見逃したもの」に残る
+  says: {
+    door: [
+      [{ ja: '母', en: 'Mom' }, { ja: 'お風呂さめるよ', en: "Your bath's getting cold" }],
+      [{ ja: '母', en: 'Mom' }, { ja: 'まだ起きてるの？', en: 'Still up?' }],
+      [{ ja: '母', en: 'Mom' }, { ja: 'ごはん置いとくね', en: 'Left dinner by the door' }],
+    ],
+    phone: [
+      [{ ja: '上司', en: 'Boss' }, { ja: '進捗どう？', en: 'How is it going?' }],
+      [{ ja: '上司', en: 'Boss' }, { ja: '寝てる？', en: 'Are you asleep?' }],
+      [{ ja: '上司', en: 'Boss' }, { ja: '不在着信', en: 'Missed call' }],
+      [{ ja: '同僚', en: 'Coworker' }, { ja: '資料どこまでできた？', en: 'How far is the deck?' }],
+      [{ ja: '上司', en: 'Boss' }, { ja: '大丈夫？生きてる？', en: 'You OK? Alive?' }],
+      [{ ja: '人事部', en: 'HR' }, { ja: '面談のご案内', en: 'About a meeting' }],
+      [{ ja: '母', en: 'Mom' }, { ja: '生きてる？', en: 'Alive?' }],
+      [{ ja: '友だち', en: 'Friend' }, { ja: '最近見ないけど', en: 'Haven\'t seen you lately' }],
+    ],
+    fridge: [[{ ja: '冷蔵庫', en: 'Fridge' }, { ja: 'ブゥーン', en: 'VRRRM' }]],
+    alarm: [[{ ja: '目覚まし', en: 'Alarm' }, { ja: '7:00（3回）', en: '7:00 (x3)' }]],
+    bell: [[{ ja: '玄関', en: 'Door' }, { ja: '会社の人が来てます', en: 'Someone from work is here' }]],
+    drill: [[{ ja: '隣の家', en: 'Next door' }, { ja: '工事のお知らせ', en: 'Construction notice' }]],
+    truck: [[{ ja: '道路', en: 'Street' }, { ja: 'トラックが通った', en: 'A truck went by' }]],
+    rocket: [[{ ja: '地球', en: 'Earth' }, { ja: 'ロケット打ち上げ', en: 'Rocket launch' }]],
+  },
+  // 揺れの主のセリフの順番（場面ごと。says の添字）
+  sayOrder: {
+    door: [[0], [1, 0], [2, 1], [], []],
+    phone: [[0], [1, 3], [2, 4, 5], [6, 7], [6, 7, 6]],
+  },
+
+  // 時計で起きる出来事（揺れなし。結果の「見逃したもの」に残る）。src: phone / window / screen / door / sign / earth
+  story: [
+    { at: 1381, src: 'phone', who: { ja: 'リマインダー', en: 'Reminder' }, msg: { ja: '明日9:00 企画書の締切', en: 'Proposal due 9:00 tomorrow' }, open: true },
+    { at: DAY + 270, src: 'window', who: { ja: '窓の外', en: 'Outside' }, msg: { ja: '鳥が鳴きはじめた', en: 'Birds started singing' }, snd: 'birds' },
+    { at: DAY + 330, src: 'window', who: { ja: '窓の外', en: 'Outside' }, msg: { ja: '朝になった', en: 'It is morning' }, snd: 'rooster' },
+    { at: DAY + 420, src: 'phone', who: { ja: '目覚まし', en: 'Alarm' }, msg: { ja: '7:00', en: '7:00' }, jolt: 'alarm' },
+    { at: DAY + 540, src: 'screen', who: { ja: '企画書', en: 'Proposal' }, msg: { ja: '提出期限を過ぎました', en: 'The deadline has passed' } },
+    { at: 2 * DAY + 720, src: 'door', who: { ja: '玄関', en: 'Door' }, msg: { ja: '会社の人が来てます', en: 'Someone from work is here' }, jolt: 'bell' },
+    { at: 3 * DAY + 600, src: 'window', who: { ja: '猫', en: 'Cat' }, msg: { ja: '子猫を5匹産んだ', en: 'Had 5 kittens' } },
+    { at: 3 * DAY + 1080 + 7 * DAY, src: 'sign', who: { ja: '隣の家', en: 'Next door' }, msg: { ja: '建て替え工事が始まった', en: 'Rebuild started' } },
+    { at: 3 * DAY + 1080 + 20 * DAY, src: 'sign', who: { ja: '銭湯のご主人', en: 'Bathhouse owner' }, msg: { ja: '…何してるの？', en: '...what are you doing?' } },
+    { at: 3 * DAY + 1080 + 45 * DAY, src: 'sign', who: { ja: '空', en: 'Sky' }, msg: { ja: '雪が降った', en: 'It snowed' } },
+    { at: 3 * DAY + 1080 + 95 * DAY, src: 'sign', who: { ja: '隣の家', en: 'Next door' }, msg: { ja: '新しい家が建った', en: 'New house is done' } },
+    { at: 3 * DAY + 1080 + 125 * DAY, src: 'sign', who: { ja: '桜', en: 'Cherry trees' }, msg: { ja: '満開になった', en: 'Full bloom' } },
+    { at: 3 * DAY + 1080 + 145 * DAY, src: 'phone', who: { ja: '友だち', en: 'Friend' }, msg: { ja: 'ニュースに映ってたよ', en: 'You were on the news' } },
+    { at: 3 * DAY + 1080 + 150 * DAY + 1 * YEAR, src: 'phone', who: { ja: '同窓会', en: 'Reunion' }, msg: { ja: '出欠のお知らせ', en: 'RSVP please' } },
+    { at: 3 * DAY + 1080 + 150 * DAY + 2 * YEAR, src: 'phone', who: { ja: '大家', en: 'Landlord' }, msg: { ja: '契約更新のお知らせ', en: 'Lease renewal' } },
+    { at: 3 * DAY + 1080 + 150 * DAY + 3 * YEAR, src: 'phone', who: { ja: '母', en: 'Mom' }, msg: { ja: '子猫たちが大人になったよ', en: 'The kittens are all grown' } },
+    { at: 3 * DAY + 1080 + 150 * DAY + 5 * YEAR, src: 'phone', who: { ja: '母', en: 'Mom' }, msg: { ja: '生きてる？既読つけて', en: 'Alive? Just tap read' } },
+    { at: 3 * DAY + 1080 + 150 * DAY + 7 * YEAR - 30 * DAY, src: 'phone', who: { ja: '上司', en: 'Boss' }, msg: { ja: '例の企画書、まだ待ってます', en: 'Still waiting on that proposal' } },
+  ],
+}
