@@ -50,7 +50,7 @@ a{-webkit-tap-highlight-color:transparent}
 #corner svg{width:20px;height:20px}
 
 /* タイトル（シールで書いてある） */
-#vTitle{display:flex;flex-direction:column;align-items:center;padding:calc(64px + env(safe-area-inset-top)) 16px calc(18px + env(safe-area-inset-bottom))}
+#vTitle{display:flex;flex-direction:column;align-items:center;padding:calc(64px + env(safe-area-inset-top)) 16px calc(18px + calc(env(safe-area-inset-bottom) + var(--inapp-bot,0px)))}
 #tHead{position:relative;width:min(92vw,380px);display:flex;flex-direction:column;align-items:flex-start;gap:6px;pointer-events:none}
 .tape{display:inline-block;background:var(--tape);color:var(--tapeInk);font:400 clamp(17px,5vw,22px)/1.2 var(--hand);padding:7px 16px 6px;transform:rotate(-2.5deg);box-shadow:0 2px 4px rgba(0,0,0,.35);
   -webkit-mask:linear-gradient(90deg,transparent 0,#000 3px,#000 calc(100% - 3px),transparent 100%);
@@ -95,7 +95,7 @@ a{-webkit-tap-highlight-color:transparent}
 /* 結果: スマホのロック画面 */
 #vEnd{background:#0d0b12;display:flex;flex-direction:column;align-items:center}
 #endWall{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-#endIn{position:relative;z-index:1;width:100%;max-width:440px;height:100%;display:flex;flex-direction:column;align-items:center;padding:calc(58px + env(safe-area-inset-top)) 14px calc(10px + env(safe-area-inset-bottom))}
+#endIn{position:relative;z-index:1;width:100%;max-width:440px;height:100%;display:flex;flex-direction:column;align-items:center;padding:calc(58px + env(safe-area-inset-top)) 14px calc(10px + calc(env(safe-area-inset-bottom) + var(--inapp-bot,0px)))}
 #lkH{font:700 15px/1 var(--goth);color:#ffd9c9;letter-spacing:.2em;opacity:.95}
 #lkDate{margin-top:10px;font:600 15px/1 var(--sys);color:#f1ece6}
 #lkTime{font:200 min(22vw,88px)/1 var(--sys);color:#fff;letter-spacing:-.02em;margin-top:2px;font-variant-numeric:tabular-nums}
@@ -219,6 +219,6 @@ a{-webkit-tap-highlight-color:transparent}
 <script src="sfx.js?v=2"></script>
 <script src="data.js?v=1"></script>
 <script src="game.js?v=1"></script>
-<script src="support.js?v=1" data-ja="缶コーヒー" data-en="a can of coffee"></script>
+<script src="support.js?v=2" data-ja="缶コーヒー" data-en="a can of coffee"></script>
 </body>
 </html>
